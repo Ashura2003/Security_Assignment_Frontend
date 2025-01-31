@@ -35,6 +35,7 @@ const Login = () => {
   const [remainingAttempts, setRemainingAttempts] = useState(null);
   const [lockTime, setLockTime] = useState(null);
   const [timer, setTimer] = useState(null);
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
   // We'll store interval reference so we can clear it
   const timerRef = useRef(null);
@@ -42,11 +43,27 @@ const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
+  const calculatePasswordStrength = (password) => {
+    let strength = 0;
+    if (password.length >= 8) strength += 1;
+    if (/[A-Z]/.test(password)) strength += 1;
+    if (/[a-z]/.test(password)) strength += 1;
+    if (/[0-9]/.test(password)) strength += 1;
+    if (/[@$!%*?&]/.test(password)) strength += 1;
+    setPasswordStrength((strength / 5) * 100);
+  };
+
   const handleReset = async (e) => {
     e.preventDefault();
 
     if (resetPassword !== confirmPassword) {
       toast.error("Passwords do not match");
+      return;
+    }
+
+    // Check if password strength is strong before allowing reset
+    if (passwordStrength < 70) {
+      toast.error("Password is too weak! Please choose a stronger password.");
       return;
     }
 
@@ -205,6 +222,16 @@ const Login = () => {
   };
 
   // ---- EXISTING RETURN (UI / LAYOUT) ----
+  const handlePasswordChange = (e) => {
+    const password = e.target.value;
+    setResetPassword(password);
+    calculatePasswordStrength(password);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   return (
     <div className="center-wrapper">
       <section className="px-5 lg:px-0">
@@ -366,10 +393,43 @@ const Login = () => {
                                         type="password"
                                         className="form-control w-50"
                                         id="newPasswordInput"
-                                        onChange={(e) =>
-                                          setResetPassword(e.target.value)
-                                        }
+                                        onChange={handlePasswordChange}
                                       />
+                                      {/* Display password strength */}
+                                      <div className="mt-2">
+                                        <div
+                                          className="progress"
+                                          style={{
+                                            height: "10px",
+                                            backgroundColor: "#e0e0e0",
+                                          }}
+                                        >
+                                          <div
+                                            className="progress-bar"
+                                            role="progressbar"
+                                            style={{
+                                              width: `${passwordStrength}%`,
+                                              backgroundColor:
+                                                passwordStrength < 40
+                                                  ? "red"
+                                                  : passwordStrength < 70
+                                                  ? "yellow"
+                                                  : "green",
+                                            }}
+                                            aria-valuenow={passwordStrength}
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                          ></div>
+                                        </div>
+                                        <small>
+                                          Password strength:{" "}
+                                          {passwordStrength < 40
+                                            ? "Weak"
+                                            : passwordStrength < 70
+                                            ? "Medium"
+                                            : "Strong"}
+                                        </small>
+                                      </div>
                                     </div>
                                     <div className="mb-3">
                                       <label
@@ -382,15 +442,14 @@ const Login = () => {
                                         type="password"
                                         className="form-control w-50"
                                         id="confirmPasswordInput"
-                                        onChange={(e) =>
-                                          setConfirmPassword(e.target.value)
-                                        }
+                                        onChange={handleConfirmPasswordChange}
                                       />
                                     </div>
                                     <button
                                       type="button"
                                       className="btn btn-primary"
                                       onClick={handleReset}
+                                      disabled={passwordStrength < 70}
                                     >
                                       Reset Password
                                     </button>
@@ -398,40 +457,21 @@ const Login = () => {
                                 )}
                               </div>
                             </div>
-                            <div className="modal-footer">
-                              <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                                onClick={() => setShow(false)}
-                              >
-                                Close
-                              </button>
-                            </div>
                           </div>
                         </div>
                       </div>
                     </Row>
                   </Form.Item>
-                  <Form.Item>
-                    <Row justify="center">
-                      <Typography.Text type="secondary">
-                        Don't have an account?{" "}
-                        <Link to="/register">Register</Link>
-                      </Typography.Text>
-                    </Row>
-                  </Form.Item>
                 </Form>
               </Flex>
-
-              {/* Image */}
-              <Flex flex={1}>
+              {/* Image Section */}
+              <div className="image-section">
                 <img
+                  className="object-cover w-[40%] max-w-[500px] h-[85vh]"
                   src={registerImage}
-                  alt="Register"
-                  className="auth-image"
+                  alt="Login Image"
                 />
-              </Flex>
+              </div>
             </Flex>
           </Card>
         </div>
