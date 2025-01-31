@@ -162,74 +162,75 @@ const Login = () => {
 
   // ---- EXISTING HANDLE LOGIN (ONLY ADD NEW LINES) ----
   const handleLogin = async (values) => {
-    if (!captchaToken) {
-      toast.error("Please complete the CAPTCHA!");
+  if (!captchaToken) {
+    toast.error("Please complete the CAPTCHA!");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const res = await fetch(`${BASE_URL}/auth/login`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const result = await res.json();
+
+    // Handle specific status codes
+    if (res.status === 400) {
+      setLoading(false);
+      if (result.remainingAttempts !== undefined) {
+        setRemainingAttempts(result.remainingAttempts);
+        toast.error(
+          `${result.message}. ${result.remainingAttempts} attempt(s) left before lock.`
+        );
+      } else {
+        toast.error(result.message || "Login failed. Please try again.");
+      }
+      return;
+    } else if (res.status === 403) {
+      setLoading(false);
+      if (result.remainingTime) {
+        setLockTime(result.remainingTime);
+        startCountdown(result.remainingTime);
+        toast.error(
+          `Account locked. Try again in ${result.remainingTime} seconds.`
+        );
+      } else {
+        toast.error(result.message || "Account locked!");
+      }
       return;
     }
 
-    setLoading(true);
-    try {
-      const res = await fetch(`${BASE_URL}/auth/login`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      const result = await res.json();
-
-      // ---- NEW: CHECK SPECIFIC STATUS CODES BEFORE THE !res.ok BLOCK ----
-      if (res.status === 400) {
-        // 400 can be "Invalid credentials", "User not found", or attempts left
-        setLoading(false);
-        if (result.remainingAttempts !== undefined) {
-          // The server includes how many attempts remain
-          setRemainingAttempts(result.remainingAttempts);
-          toast.error(
-            `${result.message}. ${result.remainingAttempts} attempt(s) left before lock.`
-          );
-        } else {
-          toast.error(result.message || "Login failed. Please try again.");
-        }
-        return; // Stop here
-      } else if (res.status === 403) {
-        // 403 means account is locked or about to lock
-        setLoading(false);
-        if (result.remainingTime) {
-          setLockTime(result.remainingTime);
-          startCountdown(result.remainingTime); // Start local timer
-          toast.error(
-            `Account locked. Try again in ${result.remainingTime} seconds.`
-          );
-        } else {
-          toast.error(result.message || "Account locked!");
-        }
-        return; // Stop here
-      }
-
-      // ---- EXISTING CHECK FOR OTHER ERRORS ----
-      if (!res.ok) {
-        throw new Error(result.message || "Login failed.");
-      }
-
-      // ---- EXISTING SUCCESS CASE ----
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: {
-          user: result.data,
-          role: result.role,
-          token: result.token,
-        },
-      });
-
-      toast.success(result.message || "Login successful!");
-      navigate("/home");
-    } catch (error) {
-      toast.error(error.message || "Login failed. Please try again.");
-    } finally {
-      setLoading(false);
+    // Check for other errors
+    if (!res.ok) {
+      throw new Error(result.message || "Login failed.");
     }
-  };
+
+    // Store session data in sessionStorage
+    sessionStorage.setItem("token", result.token); // Store JWT token
+    sessionStorage.setItem("user", JSON.stringify(result.data)); // Store user details
+
+    // Dispatch to context for global state management
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: {
+        user: result.data,
+        role: result.role,
+        token: result.token,
+      },
+    });
+
+    toast.success(result.message || "Login successful!");
+    navigate("/home");
+  } catch (error) {
+    toast.error(error.message || "Login failed. Please try again.");
+  } finally {
+    setLoading(false);
+}
+};
 
   // ---- EXISTING RETURN (UI / LAYOUT) ----
   const handlePasswordChange = (e) => {
