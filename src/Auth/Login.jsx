@@ -9,6 +9,7 @@ import {
   Spin,
   Typography,
 } from "antd";
+import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
@@ -41,9 +42,64 @@ const Login = () => {
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
-  const handleReset = () => {};
+  const handleReset = async (e) => {
+    e.preventDefault();
 
-  const sentOtp = () => {};
+    if (resetPassword !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/reset_password`, {
+        phone: phone,
+        otp: otp,
+        password: resetPassword,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        setShow(false);
+        setResetPassword("");
+        setConfirmPassword("");
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status < 500) {
+          toast.error(error.response.message);
+        }
+        toast.error(error.response.message);
+      }
+    }
+  };
+
+  const sentOtp = async (e) => {
+    e.preventDefault();
+
+    if (phone.trim == "") {
+      toast.error("Please enter your phone number");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/forgot_password`, {
+        phone: phone,
+      });
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        setIsSentOtp(true);
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status < 500) {
+          toast.error(error.response.message);
+        } else {
+          toast.error("Internal Server Error");
+        }
+      }
+    }
+  };
 
   // ---- NEW FUNCTION TO HANDLE COUNTDOWN ----
   const startCountdown = (lockDuration) => {
