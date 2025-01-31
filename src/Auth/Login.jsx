@@ -224,7 +224,7 @@ const Login = () => {
                   </Form.Item>
                   <Form.Item>
                     <Row justify="end">
-                      <span onClick={() => setShow(true)}>Forgot Password</span>
+                      <Link onClick={() => setShow(true)}>Forgot Password</Link>
                       <div
                         className={`modal fade ${show ? "show" : ""}`}
                         style={{ display: show ? "block" : "none" }}
