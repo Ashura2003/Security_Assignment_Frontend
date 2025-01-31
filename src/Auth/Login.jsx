@@ -1,3 +1,4 @@
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons"; // Import Eye icons for password visibility toggle
 import {
   Alert,
   Button,
@@ -31,13 +32,21 @@ const Login = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [show, setShow] = useState(false);
 
-  // ---- NEW STATE FOR LOCKOUT/ATTEMPTS ----
+  // ---- NEW STATE FOR PASSWORD VISIBILITY ----
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+
+  // ---- STATE FOR LOCKOUT/ATTEMPTS ----
   const [remainingAttempts, setRemainingAttempts] = useState(null);
   const [lockTime, setLockTime] = useState(null);
   const [timer, setTimer] = useState(null);
   const [passwordStrength, setPasswordStrength] = useState(0);
 
-  // We'll store interval reference so we can clear it
+  // State to track if passwords match
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+  // Timer reference for countdown
   const timerRef = useRef(null);
 
   const navigate = useNavigate();
@@ -79,6 +88,7 @@ const Login = () => {
         setShow(false);
         setResetPassword("");
         setConfirmPassword("");
+        setIsSentOtp(false);
       }
     } catch (error) {
       if (error.response) {
@@ -230,6 +240,19 @@ const Login = () => {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
+    if (resetPassword !== e.target.value) {
+      setPasswordsMatch(false);
+    } else {
+      setPasswordsMatch(true);
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
 
   return (
@@ -274,6 +297,16 @@ const Login = () => {
                     <Input.Password
                       size="large"
                       placeholder="Enter your password!"
+                      type={isPasswordVisible ? "text" : "password"} // Toggle between text and password
+                      suffix={
+                        isPasswordVisible ? (
+                          <EyeOutlined onClick={togglePasswordVisibility} />
+                        ) : (
+                          <EyeInvisibleOutlined
+                            onClick={togglePasswordVisibility}
+                          />
+                        )
+                      }
                     />
                   </Form.Item>
                   {error && (
@@ -288,7 +321,7 @@ const Login = () => {
                   <Form.Item>
                     {/* Google reCAPTCHA */}
                     <ReCAPTCHA
-                      sitekey="6Lc9FL0qAAAAACESI-gPez1IjqjlcvoymufCNeCM" // Your site key
+                      sitekey="6Lc9FL0qAAAAACESI-gPez1IjqjlcvoymufCNeCM"
                       onChange={handleCaptchaChange}
                     />
                   </Form.Item>
@@ -308,6 +341,7 @@ const Login = () => {
                   <Form.Item>
                     <Row justify="end">
                       <Link onClick={() => setShow(true)}>Forgot Password</Link>
+                      {/* Modal for Forgot Password */}
                       <div
                         className={`modal fade ${show ? "show" : ""}`}
                         style={{ display: show ? "block" : "none" }}
@@ -344,25 +378,27 @@ const Login = () => {
                                   </label>
                                   <div className="row">
                                     <div className="col-8">
-                                      <input
+                                      <Input
                                         type="tel"
-                                        className="form-control"
                                         id="exampleInputPhone1"
+                                        value={phone}
+                                        onChange={(e) =>
+                                          setPhone(e.target.value)
+                                        }
+                                        size="large"
                                         disabled={isSentOtp}
-                                        onChange={(e) => {
-                                          setPhone(e.target.value);
-                                        }}
+                                        placeholder="Enter your phone number"
                                       />
                                     </div>
                                     <div className="col-4">
-                                      <button
-                                        type="button"
-                                        className="btn btn-primary"
+                                      <Button
+                                        type="primary"
+                                        size="large"
                                         disabled={isSentOtp}
                                         onClick={sentOtp}
                                       >
                                         Get OTP
-                                      </button>
+                                      </Button>
                                     </div>
                                   </div>
                                 </form>
@@ -375,11 +411,13 @@ const Login = () => {
                                       >
                                         OTP
                                       </label>
-                                      <input
+                                      <Input
                                         type="number"
-                                        className="form-control w-50"
                                         id="otpInput"
+                                        value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
+                                        size="large"
+                                        placeholder="Enter OTP"
                                       />
                                     </div>
                                     <div className="mb-3">
@@ -389,13 +427,29 @@ const Login = () => {
                                       >
                                         New Password
                                       </label>
-                                      <input
-                                        type="password"
-                                        className="form-control w-50"
+                                      <Input.Password
                                         id="newPasswordInput"
+                                        value={resetPassword}
                                         onChange={handlePasswordChange}
+                                        size="large"
+                                        placeholder="Enter your new password"
+                                        type={
+                                          isPasswordVisible
+                                            ? "text"
+                                            : "password"
+                                        }
+                                        suffix={
+                                          isPasswordVisible ? (
+                                            <EyeOutlined
+                                              onClick={togglePasswordVisibility}
+                                            />
+                                          ) : (
+                                            <EyeInvisibleOutlined
+                                              onClick={togglePasswordVisibility}
+                                            />
+                                          )
+                                        }
                                       />
-                                      {/* Display password strength */}
                                       <div className="mt-2">
                                         <div
                                           className="progress"
@@ -431,28 +485,56 @@ const Login = () => {
                                         </small>
                                       </div>
                                     </div>
-                                    <div className="mb-3">
-                                      <label
-                                        htmlFor="confirmPasswordInput"
-                                        className="form-label"
-                                      >
-                                        Confirm Password
-                                      </label>
-                                      <input
-                                        type="password"
-                                        className="form-control w-50"
+                                    <Form.Item
+                                      label="Confirm Password"
+                                      validateStatus={
+                                        !passwordsMatch ? "error" : ""
+                                      }
+                                      help={
+                                        !passwordsMatch
+                                          ? "Passwords do not match!"
+                                          : ""
+                                      }
+                                    >
+                                      <Input.Password
                                         id="confirmPasswordInput"
+                                        value={confirmPassword}
                                         onChange={handleConfirmPasswordChange}
+                                        size="large"
+                                        placeholder="Confirm your password"
+                                        type={
+                                          isConfirmPasswordVisible
+                                            ? "text"
+                                            : "password"
+                                        }
+                                        suffix={
+                                          isConfirmPasswordVisible ? (
+                                            <EyeOutlined
+                                              onClick={
+                                                toggleConfirmPasswordVisibility
+                                              }
+                                            />
+                                          ) : (
+                                            <EyeInvisibleOutlined
+                                              onClick={
+                                                toggleConfirmPasswordVisibility
+                                              }
+                                            />
+                                          )
+                                        }
                                       />
-                                    </div>
-                                    <button
-                                      type="button"
-                                      className="btn btn-primary"
+                                    </Form.Item>
+                                    <Button
+                                      type="primary"
+                                      size="large"
                                       onClick={handleReset}
-                                      disabled={passwordStrength < 70}
+                                      disabled={
+                                        passwordStrength < 70 || !passwordsMatch
+                                      }
+                                      block
                                     >
                                       Reset Password
-                                    </button>
+                                    </Button>
                                   </form>
                                 )}
                               </div>
@@ -461,6 +543,14 @@ const Login = () => {
                         </div>
                       </div>
                     </Row>
+                    <Form.Item>
+                      <Row justify="center">
+                        <Typography.Text type="secondary">
+                          Don't have an account?{" "}
+                          <Link to="/register">Register</Link>
+                        </Typography.Text>
+                      </Row>
+                    </Form.Item>
                   </Form.Item>
                 </Form>
               </Flex>
