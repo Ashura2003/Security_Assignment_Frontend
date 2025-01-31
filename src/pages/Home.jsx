@@ -28,7 +28,7 @@ const Home = () => {
             <div className="w-full lg:w-1/2">
               <div className="lg:w-[570px]">
                 <h1 className="text-2xl leading-tight text-headingColor font-bold md:text-4xl md:leading-tight">
-                  We help patients live a healthy, longer life.
+                  Your Health is our concern
                 </h1>
                 <p className="text__para mt-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
@@ -36,24 +36,24 @@ const Home = () => {
                   excepturi odit vel earum sunt, reprehenderit deserunt ratione.
                   Veritatis, ducimus. Voluptas, sed iusto.
                 </p>
-                <button className="btn mt-4">Request an Appointment</button>
+                <button className="btn mt-4">Appoint a Helper</button>
               </div>
               {/* ===================== hero counter ============================ */}
               <div className="mt-8 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
                 <div>
                   <h2 className="text-2xl leading-tight lg:text-3xl lg:leading-tight font-bold text-headingColor">
-                    30+
+                    Over 30
                   </h2>
-                  <span className="w-20 h-1 bg-yellowColor rounded-full block mt-[-4px]"></span>
+                  <span className="w-28 h-1 bg-yellowColor rounded-full block mt-[-4px]"></span>
                   <p className="text__para">Years of Experience</p>
                 </div>
 
                 <div>
                   <h2 className="text-2xl leading-tight lg:text-3xl lg:leading-tight font-bold text-headingColor">
-                    15+
+                    Over 15
                   </h2>
-                  <span className="w-20 h-1 bg-purpleColor rounded-full block mt-[-4px]"></span>
-                  <p className="text__para">Clinic Location</p>
+                  <span className="w-28 h-1 bg-purpleColor rounded-full block mt-[-4px]"></span>
+                  <p className="text__para">Clinics</p>
                 </div>
 
                 <div>
@@ -61,7 +61,7 @@ const Home = () => {
                     100%
                   </h2>
                   <span className="w-20 h-1 bg-irisBlueColor rounded-full block mt-[-4px]"></span>
-                  <p className="text__para">Patient Satisfaction</p>
+                  <p className="text__para">Patient Morale</p>
                 </div>
               </div>
             </div>
@@ -84,11 +84,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="lg:w-[470px] mx-auto">
             <h2 className="heading text-center">
-              Providing the best medical services
+              We provide the best medical services
             </h2>
             <p className="text__para text-center mt-4">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
+              World-class care for the people, By the people
             </p>
           </div>
 

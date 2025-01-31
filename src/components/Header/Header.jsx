@@ -13,7 +13,7 @@ const navLinks = [
   },
   {
     path: "/workers",
-    display: "Find a Worker",
+    display: "Find a Doctor",
   },
   {
     path: "/services",
