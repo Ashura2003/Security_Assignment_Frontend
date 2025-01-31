@@ -1,12 +1,22 @@
-import { Alert, Button, Card, Form, Input, Row, Spin, Typography, Progress } from "antd";
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  Input,
+  Progress,
+  Row,
+  Spin,
+  Typography,
+} from "antd";
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import avatar from "../assets/images/worker-img01.png";
 import signupImg from "../assets/images/signup.gif";
+import avatar from "../assets/images/worker-img01.png";
 import { BASE_URL } from "../config";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -17,6 +27,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
     role: "patient",
@@ -77,6 +88,8 @@ const Register = () => {
     setLoading(true);
     try {
       const { confirmPassword, ...registrationData } = formData;
+
+      console.log(registrationData);
 
       const res = await fetch(`${BASE_URL}/auth/signup`, {
         method: "post",
@@ -151,6 +164,22 @@ const Register = () => {
                       placeholder="Enter your email!"
                       name="email"
                       value={formData.email}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Phone"
+                    name="phone"
+                    rules={[
+                      { required: true, message: "Please input your phone!" },
+                      { type: "phone", message: "Please input a valid phone!" },
+                    ]}
+                  >
+                    <Input
+                      size="large"
+                      placeholder="Enter your Phone!"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleChange}
                     />
                   </Form.Item>
