@@ -6,14 +6,30 @@ const Appointments = ({ appointments }) => {
     <table className="w-full text-left text-sm text-gray-500">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
-          <th scope="col" className="px-6 py-3">Name</th>
-          <th scope="col" className="px-6 py-3">Gender</th>
-          <th scope="col" className="px-6 py-3">Payment</th>
-          <th scope="col" className="px-6 py-3">Price</th>
-          <th scope="col" className="px-6 py-3">Booked Online</th>
-          <th scope="col" className="px-6 py-3">Appointment Date</th>
-          <th scope="col" className="px-6 py-3">Appointment Time</th>
-          <th scope="col" className="px-6 py-3">Status</th>
+          <th scope="col" className="px-6 py-3">
+            Name
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Gender
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Payment
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Price
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Booked Online
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Appointment Date
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Appointment Time
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Status
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -30,7 +46,9 @@ const Appointments = ({ appointments }) => {
               />
               <div className="pl-3">
                 <div className="text-base font-semibold">{item.user.name}</div>
-                <div className="text-normal text-gray-500">{item.user.email}</div>
+                <div className="text-normal text-gray-500">
+                  {item.user.email}
+                </div>
               </div>
             </th>
             <td className="px-6 py-4">{item.user.gender}</td>
@@ -51,7 +69,9 @@ const Appointments = ({ appointments }) => {
             <td className="px-6 py-4">{formateDate(item.createdAt)}</td>
             <td className="px-6 py-4">{formateDate(item.appointmentDate)}</td>
             <td className="px-6 py-4">{item.appointmentTime}</td>
-            <td className="px-6 py-4">{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</td>
+            <td className="px-6 py-4">
+              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+            </td>
           </tr>
         ))}
       </tbody>
