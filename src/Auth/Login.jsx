@@ -15,7 +15,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import registerImage from "../assets/login3.jpeg";
 import { BASE_URL } from "../config";
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -162,75 +161,75 @@ const Login = () => {
 
   // ---- EXISTING HANDLE LOGIN (ONLY ADD NEW LINES) ----
   const handleLogin = async (values) => {
-  if (!captchaToken) {
-    toast.error("Please complete the CAPTCHA!");
-    return;
-  }
-
-  setLoading(true);
-  try {
-    const res = await fetch(`${BASE_URL}/auth/login`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const result = await res.json();
-
-    // Handle specific status codes
-    if (res.status === 400) {
-      setLoading(false);
-      if (result.remainingAttempts !== undefined) {
-        setRemainingAttempts(result.remainingAttempts);
-        toast.error(
-          `${result.message}. ${result.remainingAttempts} attempt(s) left before lock.`
-        );
-      } else {
-        toast.error(result.message || "Login failed. Please try again.");
-      }
-      return;
-    } else if (res.status === 403) {
-      setLoading(false);
-      if (result.remainingTime) {
-        setLockTime(result.remainingTime);
-        startCountdown(result.remainingTime);
-        toast.error(
-          `Account locked. Try again in ${result.remainingTime} seconds.`
-        );
-      } else {
-        toast.error(result.message || "Account locked!");
-      }
+    if (!captchaToken) {
+      toast.error("Please complete the CAPTCHA!");
       return;
     }
 
-    // Check for other errors
-    if (!res.ok) {
-      throw new Error(result.message || "Login failed.");
+    setLoading(true);
+    try {
+      const res = await fetch(`${BASE_URL}/auth/login`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const result = await res.json();
+
+      // Handle specific status codes
+      if (res.status === 400) {
+        setLoading(false);
+        if (result.remainingAttempts !== undefined) {
+          setRemainingAttempts(result.remainingAttempts);
+          toast.error(
+            `${result.message}. ${result.remainingAttempts} attempt(s) left before lock.`
+          );
+        } else {
+          toast.error(result.message || "Login failed. Please try again.");
+        }
+        return;
+      } else if (res.status === 403) {
+        setLoading(false);
+        if (result.remainingTime) {
+          setLockTime(result.remainingTime);
+          startCountdown(result.remainingTime);
+          toast.error(
+            `Account locked. Try again in ${result.remainingTime} seconds.`
+          );
+        } else {
+          toast.error(result.message || "Account locked!");
+        }
+        return;
+      }
+
+      // Check for other errors
+      if (!res.ok) {
+        throw new Error(result.message || "Login failed.");
+      }
+
+      // Store session data in sessionStorage
+      sessionStorage.setItem("token", result.token); // Store JWT token
+      sessionStorage.setItem("user", JSON.stringify(result.data)); // Store user details
+
+      // Dispatch to context for global state management
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {
+          user: result.data,
+          role: result.role,
+          token: result.token,
+        },
+      });
+
+      toast.success(result.message || "Login successful!");
+      navigate("/home");
+    } catch (error) {
+      toast.error(error.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    // Store session data in sessionStorage
-    sessionStorage.setItem("token", result.token); // Store JWT token
-    sessionStorage.setItem("user", JSON.stringify(result.data)); // Store user details
-
-    // Dispatch to context for global state management
-    dispatch({
-      type: "LOGIN_SUCCESS",
-      payload: {
-        user: result.data,
-        role: result.role,
-        token: result.token,
-      },
-    });
-
-    toast.success(result.message || "Login successful!");
-    navigate("/home");
-  } catch (error) {
-    toast.error(error.message || "Login failed. Please try again.");
-  } finally {
-    setLoading(false);
-}
-};
+  };
 
   // ---- EXISTING RETURN (UI / LAYOUT) ----
   const handlePasswordChange = (e) => {
@@ -267,9 +266,7 @@ const Login = () => {
                 <Typography.Title level={3} strong className="title">
                   Sign In
                 </Typography.Title>
-                <Typography.Text type="secondary" strong className="slogan">
-                  Connect with us!
-                </Typography.Text>
+
                 <Form
                   layout="vertical"
                   onFinish={handleLogin}
@@ -555,14 +552,6 @@ const Login = () => {
                   </Form.Item>
                 </Form>
               </Flex>
-              {/* Image Section */}
-              <div className="image-section">
-                <img
-                  className="object-cover w-[40%] max-w-[500px] h-[85vh]"
-                  src={registerImage}
-                  alt="Login Image"
-                />
-              </div>
             </Flex>
           </Card>
         </div>

@@ -36,22 +36,24 @@ const Workers = () => {
       <section className="bg-[#fff9ea]">
         <div className="container text-center">
           <h2 className="heading">Find a Worker</h2>
-          <div className="max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between">
+          <div className="max-w-[570px] mt-[30px] mx-auto bg-[#FFFFFF] rounded-md flex items-center justify-space-between">
             <input
               type="search"
-              className="py-4 pl-4 pr-2 bg-transparent w-full focus:outline-none cursor-pointer placeholder:text-textColor"
-              placeholder="Search Worker by name or specialization"
+              className="py-4 pl-4 pr-2 w-full focus:outline-none cursor-pointer placeholder:text-textColor"
+              placeholder="Search Doctor"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <button
-              className="btn mt-0 rounded-[0px] rounded-r-md"
+              className="btn mt-0 rounded-[5px] hover:bg-[#3fe3f] " 
               onClick={handleSearch}
             >
               Search
-            </button>
+            </button>  
           </div>
+          
         </div>
+        
 
         <section>
           <div className="container">
@@ -65,24 +67,13 @@ const Workers = () => {
               </div>
             )}
             {!loading && !error && workersArray.length === 0 && (
-              <p>No workers found</p>
+              <p>No doctors or workers found</p>
             )}
           </div>
         </section>
       </section>
 
-      <section>
-        <div className="container">
-          <div className="xl:w-[470px] mx-auto">
-            <h2 className="heading text-center">What our patients say</h2>
-            <p className="text__para text-center">
-              World-class care for everyone. Our health system offers unmatched,
-              expert health care.
-            </p>
-          </div>
-          <Testimonial />
-        </div>
-      </section>
+      
     </>
   );
 };

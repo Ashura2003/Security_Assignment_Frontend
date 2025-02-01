@@ -60,7 +60,7 @@ const MyAccount = () => {
               <div className="mt-[50px] md:mt-[100px]">
                 <button
                   onClick={handleLogout}
-                  className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white"
+                  className="w-full bg-[#0E0F36] p-3 text-[16px] leading-7 rounded-md text-white"
                 >
                   Logout
                 </button>

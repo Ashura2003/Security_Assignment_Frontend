@@ -13,7 +13,6 @@ import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import signupImg from "../assets/images/signup.gif";
 import avatar from "../assets/images/worker-img01.png";
 import { BASE_URL } from "../config";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
@@ -116,8 +115,8 @@ const Register = () => {
   };
 
   return (
-    <div className="center-wrapper">
-      <section className="px-5 lg:px-0">
+    <div className="center-wrapper mt-[80px]">
+      <section className="px-5 lg:px-0 pt-[250px]">
         <div className="w-full max-w-[1170px] mx-auto rounded-lg shadow md:p-10 justify-center">
           <Card className="form-container">
             <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
@@ -125,9 +124,7 @@ const Register = () => {
                 <Typography.Title level={3} strong className="title">
                   Create an Account
                 </Typography.Title>
-                <Typography.Text type="secondary" strong className="slogan">
-                  Join for exclusive access to our services.
-                </Typography.Text>
+
                 <Form
                   layout="vertical"
                   onFinish={handleRegister}
@@ -353,9 +350,6 @@ const Register = () => {
                     </Row>
                   </Form.Item>
                 </Form>
-              </div>
-              <div style={{ flex: 1 }}>
-                <img src={signupImg} alt="Register" className="auth-image" />
               </div>
             </div>
           </Card>

@@ -39,31 +39,7 @@ const Home = () => {
                 <button className="btn mt-4">Appoint a Helper</button>
               </div>
               {/* ===================== hero counter ============================ */}
-              <div className="mt-8 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
-                <div>
-                  <h2 className="text-2xl leading-tight lg:text-3xl lg:leading-tight font-bold text-headingColor">
-                    Over 30
-                  </h2>
-                  <span className="w-28 h-1 bg-yellowColor rounded-full block mt-[-4px]"></span>
-                  <p className="text__para">Years of Experience</p>
-                </div>
-
-                <div>
-                  <h2 className="text-2xl leading-tight lg:text-3xl lg:leading-tight font-bold text-headingColor">
-                    Over 15
-                  </h2>
-                  <span className="w-28 h-1 bg-purpleColor rounded-full block mt-[-4px]"></span>
-                  <p className="text__para">Clinics</p>
-                </div>
-
-                <div>
-                  <h2 className="text-2xl leading-tight lg:text-3xl lg:leading-tight font-bold text-headingColor">
-                    100%
-                  </h2>
-                  <span className="w-20 h-1 bg-irisBlueColor rounded-full block mt-[-4px]"></span>
-                  <p className="text__para">Patient Morale</p>
-                </div>
-              </div>
+              
             </div>
 
             {/* ===================== hero content ============================ */}
@@ -84,7 +60,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="lg:w-[470px] mx-auto">
             <h2 className="heading text-center">
-              We provide the best medical services
+              We provide medical services all over Nepal
             </h2>
             <p className="text__para text-center mt-4">
               World-class care for the people, By the people
@@ -99,11 +75,10 @@ const Home = () => {
 
               <div className="mt-8 text-center">
                 <h2 className="text-xl leading-tight text-headingColor font-bold">
-                  Find a Worker
+                  Find a Doctor
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  World-class care for everyone. Our health System offers
-                  unmatched, expert health care. From the lab to the clinic.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
                 </p>
 
                 <Link
@@ -122,11 +97,10 @@ const Home = () => {
 
               <div className="mt-8 text-center">
                 <h2 className="text-xl leading-tight text-headingColor font-bold">
-                  Find a Location
+                  Find Location
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  World-class care for everyone. Our health System offers
-                  unmatched, expert health care. From the lab to the clinic.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
                 </p>
 
                 <Link
@@ -145,16 +119,15 @@ const Home = () => {
 
               <div className="mt-8 text-center">
                 <h2 className="text-xl leading-tight text-headingColor font-bold">
-                  Book Appointment
+                  Book an Appointment
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  World-class care for everyone. Our health System offers
-                  unmatched, expert health care. From the lab to the clinic.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
                 </p>
 
                 <Link
                   to="/workers"
-                  className="w-10 h-10 rounded-full border border-solid border-gray-800 mt-8 mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none"
+                  className="w-10 h-10 rounded-full border border-solid border-black-800 mt-8 mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none"
                 >
                   <BsArrowRight className="group-hover:text-white w-6 h-6" />
                 </Link>
@@ -172,8 +145,8 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">Our medical services</h2>
             <p className="text__para text-center mt-4">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis 
+              sint corporis eaque enim doloremque accusamus, laudantium molestiae.
             </p>
           </div>
           <ServiceList />
@@ -210,36 +183,7 @@ const Home = () => {
             </div>
 
             {/*  ========================= feature img ================================= */}
-            <div className="relative z-10 xl:w-[770px] flex justify-end mt-8 lg:mt-0">
-              <img src={featureImg} className="w-3/4" alt="Feature" />
-
-              <div className="w-36 lg:w-60 bg-white absolute bottom-12 left-0 md:bottom-24 md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-6 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 lg:gap-3">
-                    <p className="text-xs leading-none lg:text-sm lg:leading-none text-headingColor font-bold">
-                      Tue, 24
-                    </p>
-                    <p className="text-xs leading-none lg:text-sm lg:leading-none text-headingColor font-normal">
-                      10:00AM
-                    </p>
-                  </div>
-                  <span className="w-5 h-5 lg:w-8 lg:h-8 flex items-center justify-center bg-yellowColor rounded py-1 px-2 lg:py-2 lg:px-3">
-                    <img src={videoIcon} alt="Video Icon" />
-                  </span>
-                </div>
-
-                <div className="w-16 lg:w-24 bg-[#CCF0F3] py-1 px-2 lg:py-1.5 lg:px-2.5 text-xs leading-none lg:text-sm lg:leading-none text-irishBlueColor font-medium mt-2 lg:mt-4 rounded-full">
-                  Consultation
-                </div>
-
-                <div className="flex items-center gap-2 lg:gap-3 mt-2 lg:mt-4">
-                  <img src={avatarIcon} alt="Avatar" />
-                  <h4 className="text-xs leading-none lg:text-sm lg:leading-none font-bold text-headingColor">
-                    Suraj Gautam
-                  </h4>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </section>

@@ -15,10 +15,7 @@ const navLinks = [
     path: "/workers",
     display: "Find a Doctor",
   },
-  {
-    path: "/services",
-    display: "Services",
-  },
+  
   {
     path: "/contact",
     display: "Contact",
@@ -51,11 +48,11 @@ const Header = () => {
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
 
   return (
-    <header className="header flex items-center" ref={headerRef}>
+    <header className="header flex items-center primary" ref={headerRef}>
       <div className="container">
         <div className="flex items-center justify-between gap-8">
           {/* =================== logo =============== */}
-          <div className="logo-container flex items-center">
+          <div className="logo-container flex items">
             <img src={logo} className="logo" alt="App Logo" />
           </div>
 
