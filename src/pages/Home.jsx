@@ -1,21 +1,15 @@
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import avatarIcon from "../assets/images/avatar-icon.png";
 import faqImg from "../assets/images/faq-img.png";
-import featureImg from "../assets/images/feature-img.png";
 import heroImg01 from "../assets/images/home-page01.png";
-import heroImg02 from "../assets/images/home-page02.png";
-import heroImg03 from "../assets/images/home-page03.png";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
-import videoIcon from "../assets/images/video-icon.png";
 import About from "../components/About/About";
 import FaqList from "../components/Faq/FaqList";
 import ServiceList from "../components/Services/ServiceList";
 import Testimonial from "../components/Testimonial/Testimonial";
-import WorkerList from "../components/Workers/WorkerList";
 
 const Home = () => {
   return (
@@ -39,17 +33,12 @@ const Home = () => {
                 <button className="btn mt-4">Appoint a Helper</button>
               </div>
               {/* ===================== hero counter ============================ */}
-              
             </div>
 
             {/* ===================== hero content ============================ */}
             <div className="flex gap-4 lg:gap-8 justify-end w-full lg:w-1/2">
               <div>
                 <img className="w-full" src={heroImg01} alt="Hero 1" />
-              </div>
-              <div className="mt-4">
-                <img src={heroImg02} alt="Hero 2" className="w-full mb-4" />
-                <img src={heroImg03} alt="Hero 3" className="w-full" />
               </div>
             </div>
           </div>
@@ -78,7 +67,9 @@ const Home = () => {
                   Find a Doctor
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex
+                  laborum omnis sint corporis eaque enim doloremque accusamus,
+                  laudantium molestiae.
                 </p>
 
                 <Link
@@ -100,7 +91,9 @@ const Home = () => {
                   Find Location
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex
+                  laborum omnis sint corporis eaque enim doloremque accusamus,
+                  laudantium molestiae.
                 </p>
 
                 <Link
@@ -122,7 +115,9 @@ const Home = () => {
                   Book an Appointment
                 </h2>
                 <p className="text-base leading-7 text-textColor mt-4">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis sint corporis eaque enim doloremque accusamus, laudantium molestiae.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex
+                  laborum omnis sint corporis eaque enim doloremque accusamus,
+                  laudantium molestiae.
                 </p>
 
                 <Link
@@ -145,8 +140,9 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">Our medical services</h2>
             <p className="text__para text-center mt-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex laborum omnis 
-              sint corporis eaque enim doloremque accusamus, laudantium molestiae.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex
+              laborum omnis sint corporis eaque enim doloremque accusamus,
+              laudantium molestiae.
             </p>
           </div>
           <ServiceList />
@@ -183,7 +179,6 @@ const Home = () => {
             </div>
 
             {/*  ========================= feature img ================================= */}
-            
           </div>
         </div>
       </section>
@@ -196,9 +191,7 @@ const Home = () => {
               <img src={faqImg} alt="FAQ" />
             </div>
             <div className="w-full md:w-1/2">
-              <h2 className="heading">
-                Frequently Asked Questions
-              </h2>
+              <h2 className="heading">Frequently Asked Questions</h2>
               <FaqList />
             </div>
           </div>
