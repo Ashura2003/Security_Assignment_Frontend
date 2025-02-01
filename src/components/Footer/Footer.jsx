@@ -45,7 +45,7 @@ const quickLinks01 = [
 const quickLinks02 = [
   {
     path: '/find-a-worker',
-    display: 'Find a Worker',
+    display: 'Find a Doctor',
   },
   {
     path: '/',
@@ -53,12 +53,8 @@ const quickLinks02 = [
   },
   {
     path: '/',
-    display: 'Find a Location',
+    display: 'Find Locations',
   },
-  {
-    path: '/',
-    display: 'Get an Opinion',
-  }
 ];
 
 const quickLinks03 = [
@@ -84,7 +80,7 @@ const Footer = () => {
           <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
               <div>
                 <img src={logo} className="logo" alt="App Logo" />
-                <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'> Copyright © {year} developed by Sujan Gautam all right reserved.
+                <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'> Copyright © issued at {year}.
 
                 </p>
                 <div className='flex items-center gap-3 mt-4'>

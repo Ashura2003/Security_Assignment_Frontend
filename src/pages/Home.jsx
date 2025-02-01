@@ -188,7 +188,7 @@ const Home = () => {
             {/* =============== feature content ======================== */}
             <div className="xl:w-[670px]">
               <h2 className="heading">
-                Get Virtual treatment <br /> from anywhere.
+                Get your treatment <br /> from anywhere.
               </h2>
 
               <ul className="pl-4 mt-4">
@@ -244,20 +244,6 @@ const Home = () => {
         </div>
       </section>
       {/* ============================ feature section end ========================== */}
-      {/* ============================ our great workers ============================ */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="xl:w-[470px] mx-auto">
-            <h2 className="heading text-center">Our great workers</h2>
-            <p className="text__para text-center mt-4">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
-            </p>
-          </div>
-          <WorkerList />
-        </div>
-      </section>
-      {/* ============================ our great workers end ============================ */}
       {/* ============================ faq section =================================== */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -267,7 +253,7 @@ const Home = () => {
             </div>
             <div className="w-full md:w-1/2">
               <h2 className="heading">
-                Most questions by our beloved patients
+                Frequently Asked Questions
               </h2>
               <FaqList />
             </div>
@@ -281,8 +267,7 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">What our patient say</h2>
             <p className="text__para text-center mt-4">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
+              What our patients have to say for our services.
             </p>
           </div>
           <Testimonial />
