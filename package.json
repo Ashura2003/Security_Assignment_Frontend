@@ -28,7 +28,8 @@
     "react-toastify": "^10.0.5",
     "stripe": "^16.2.0",
     "styled-components": "^6.1.11",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "terser": "^5.37.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.8",
@@ -40,6 +41,7 @@
     "@vitest/ui": "^2.0.5",
     "autoprefixer": "^10.4.19",
     "babel-jest": "^29.7.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
